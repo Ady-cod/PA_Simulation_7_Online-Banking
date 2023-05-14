@@ -1,0 +1,54 @@
+@startuml
+class Bank{
+-List<Client>clients
+-List<Account>accounts
++validateTransfers():void
++displayTransferReports():void
+}
+class TransferReport{
+-transferId:String
+-accountFrom:Account
+-accountTo:Account
+-transferAmount:double
+-status:TransferStatus
+}
+class Client{
+-id:String
+-List<Account>accounts
++transferMoney(Account accountFrom,Account accountTo,int amount):void
+}
+abstract class Account{
+-id:String
+-clientId:String
+-accountCurrency:AccountCurrency
+#wireFee:double
+-balance:double
+-List<TransferReport>pendingTransfers
+-List<TransferReport>acceptedTransfers
+-List<TransferReport>rejectedTransfers
+
+}
+class ConsumerAccount extends Account{
+}
+class CorporateAccount extends Account{
+}
+enum AccountCurrency{
+LEI,
+EURO,
+US_DOLLAR
+}
+enum TransferStatus{
+PENDING,
+ACCEPTED,
+REJECTED
+}
+Bank-->Account
+Bank-->Client
+TransferReport-->Account
+TransferReport-->TransferStatus
+Client-->Account
+Account-->AccountCurrency
+Account-->TransferReport
+
+
+@enduml
